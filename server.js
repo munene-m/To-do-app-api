@@ -4,11 +4,11 @@ const cors = require("cors")
 const dotenv = require("dotenv")
 const mongoose = require("mongoose")
 const taskRoute = require("./routes/taskRoute")
-const port = 5000
 
 dotenv.config()
 app.use(express.json())
 app.use(cors())
+app.use(express.urlencoded({extended:false}))
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -17,8 +17,8 @@ mongoose.connect(process.env.MONGO_URL, {
   .then(console.log("connected to MONGO"))
   .catch((err) => console.log(err));
 
-app.use("tasks", taskRoute)
+app.use("/tasks", taskRoute)
 
-app.listen(() => {
-    console.log(`Server running on port ${port}`)
+app.listen("3000", () => {
+    console.log('Server running')
 })
